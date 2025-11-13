@@ -1,1 +1,14 @@
 api_keys.dart
+api_keys.default.dart
+*.log
+*.lock
+*.tmp
+.DS_Store
+.idea/
+.vscode/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub/
+.pub-cache/ 

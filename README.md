@@ -1,6 +1,20 @@
 # Flutter Weather App Example
 
-An example Flutter weather app using the [OpenWeatherMap API](https://openweathermap.org/api).
+An example Flutter weather app using the [OpenWeatherMap API](https:### Test Evidence
+
+Each test automatically captures screenshots as visual evidence:
+
+- **load-weather-page.png** - Initial page load
+- **search-box-interface.png** - Search interface display
+- **weather-information-display.png** - Weather data display
+- **before/after-new-york-search.png** - City search test evidence
+- **initial-london-state.png** / **after-london-switch.png** - City switching evidence
+- **forecast-display.png** / **forecast-test-complete.png** - Forecast display evidence
+- **before/after-empty-input.png** - Empty input handling evidence
+- **before/after-refresh.png** - Page refresh behavior evidence
+- **mobile-responsive.png** - Mobile responsiveness evidence
+
+Screenshots are saved in `test-results/screenshots/` and included in the HTML test report.rmap.org/api).
 
 <img src="https://github.com/bizz84/open_weather_example_flutter/blob/main/.github/images/weather-forecast.png?raw=true" alt="Flutter Weather App Preview" width=50% height=50%>
 
@@ -84,4 +98,29 @@ The app shows data from the following endpoints:
 
 **Note**: to use the API you'll need to register an account and obtain your own API key. This can be set via `--dart-define` or inside `lib/src/api/api_keys.dart`.
 
-### [LICENSE: MIT](LICENSE.md)
+## Testing
+
+This app includes end-to-end tests using Playwright to ensure the web version works correctly.
+
+### Running E2E Tests
+
+1. Make sure you have Node.js installed.
+2. Install dependencies: `npm install`
+3. Install Playwright browsers: `npx playwright install`
+4. Run the tests: `npm test`
+5. View test results and screenshots: `npm run test:report`
+
+The tests will automatically start the Flutter web server and run tests against it.
+
+### Test Coverage
+
+- Loading the weather page without errors
+- Checking that the app is interactive
+- Displaying weather information without crashes
+- Testing app behavior with different city searches (stability tests)
+- Verifying forecast display for different cities
+- Handling empty search inputs gracefully
+- Maintaining app state on page refresh
+- Responsive design on mobile devices
+
+Note: Since Flutter web renders UI content in a canvas, the tests focus on ensuring the app loads and runs without errors rather than testing specific UI interactions. For comprehensive UI testing, consider using Flutter integration tests.
