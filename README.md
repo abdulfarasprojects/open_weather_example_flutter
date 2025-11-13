@@ -124,3 +124,60 @@ The tests will automatically start the Flutter web server and run tests against 
 - Responsive design on mobile devices
 
 Note: Since Flutter web renders UI content in a canvas, the tests focus on ensuring the app loads and runs without errors rather than testing specific UI interactions. For comprehensive UI testing, consider using Flutter integration tests.
+
+### Appium Mobile Tests
+
+This app also includes mobile end-to-end tests using Appium to test the Android and iOS versions.
+
+#### Prerequisites
+
+1. **Appium Server**: Install Appium globally
+   ```bash
+   npm install -g appium
+   appium driver install uiautomator2  # for Android
+   appium driver install xcuitest      # for iOS
+   ```
+
+2. **Android Setup** (for Android testing):
+   - Android SDK installed
+   - Android emulator running or physical device connected
+   - Update `wdio.conf.js` with correct device name and APK path
+
+3. **iOS Setup** (for iOS testing):
+   - Xcode installed
+   - iOS Simulator or physical device
+   - Update `wdio.conf.js` with correct device capabilities
+
+#### Running Appium Tests
+
+1. Build the app:
+   ```bash
+   npm run build:apk  # for Android
+   # or for iOS: flutter build ios --debug
+   ```
+
+2. Start Appium server:
+   ```bash
+   appium
+   ```
+
+3. Run the tests:
+   ```bash
+   npm run test:appium:android  # for Android
+   npm run test:appium:ios      # for iOS
+   ```
+
+#### Appium Test Coverage
+
+The Appium tests mirror the Playwright tests but for mobile platforms:
+
+- Loading the weather app without errors
+- Interacting with search functionality (where possible)
+- Displaying weather information
+- Searching for different cities (New York, London)
+- Testing forecast display
+- Handling empty search inputs
+- App restart behavior
+- Mobile responsiveness
+
+Note: Flutter apps may require specific element locators. The tests use a combination of accessibility IDs, text matching, and class names. You may need to adjust locators based on your app's implementation.
