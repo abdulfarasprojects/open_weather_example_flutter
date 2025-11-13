@@ -7,6 +7,10 @@ class InvalidApiKeyException extends APIException {
   InvalidApiKeyException() : super('Invalid API key');
 }
 
+class OneCallAPIUnauthorizedException extends APIException {
+  OneCallAPIUnauthorizedException() : super('One Call API 3.0 requires a paid subscription. The timemachine endpoint is not available with free API keys.');
+}
+
 class NoInternetConnectionException extends APIException {
   NoInternetConnectionException() : super('No Internet connection');
 }

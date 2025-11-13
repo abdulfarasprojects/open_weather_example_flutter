@@ -56,6 +56,7 @@ const encodedWeatherJsonResponse = """
 """;
 
 final expectedWeatherFromJson = Weather(
+  coord: Coord(lat: 37.39, lon: -122.08),
   weatherParams: WeatherParams(temp: 282.55, tempMin: 280.37, tempMax: 284.26),
   weatherInfo: [
     WeatherInfo(

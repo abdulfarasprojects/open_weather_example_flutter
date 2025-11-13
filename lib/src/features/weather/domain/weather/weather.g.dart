@@ -34,18 +34,31 @@ Map<String, dynamic> _$$WeatherInfoImplToJson(_$WeatherInfoImpl instance) =>
       'icon': instance.icon,
     };
 
+_$CoordImpl _$$CoordImplFromJson(Map<String, dynamic> json) => _$CoordImpl(
+      lat: (json['lat'] as num).toDouble(),
+      lon: (json['lon'] as num).toDouble(),
+    );
+
+Map<String, dynamic> _$$CoordImplToJson(_$CoordImpl instance) =>
+    <String, dynamic>{
+      'lat': instance.lat,
+      'lon': instance.lon,
+    };
+
 _$WeatherImpl _$$WeatherImplFromJson(Map<String, dynamic> json) =>
     _$WeatherImpl(
+      coord: Coord.fromJson(json['coord'] as Map<String, dynamic>),
       weatherParams:
           WeatherParams.fromJson(json['main'] as Map<String, dynamic>),
       weatherInfo: (json['weather'] as List<dynamic>)
           .map((e) => WeatherInfo.fromJson(e as Map<String, dynamic>))
           .toList(),
-      dt: json['dt'] as int,
+      dt: (json['dt'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$WeatherImplToJson(_$WeatherImpl instance) =>
     <String, dynamic>{
+      'coord': instance.coord,
       'main': instance.weatherParams,
       'weather': instance.weatherInfo,
       'dt': instance.dt,

@@ -6,6 +6,7 @@ import 'package:open_weather_example_flutter/src/api/api.dart';
 import 'package:open_weather_example_flutter/src/api/api_keys.dart';
 import 'package:open_weather_example_flutter/src/features/weather/data/api_exception.dart';
 import 'package:open_weather_example_flutter/src/features/weather/domain/forecast/forecast.dart';
+import 'package:open_weather_example_flutter/src/features/weather/domain/historical/historical_weather.dart';
 import 'package:open_weather_example_flutter/src/features/weather/domain/weather/weather.dart';
 
 /// Weather Repository using the http client. Calls API methods and parses responses.
@@ -23,6 +24,46 @@ class HttpWeatherRepository {
         uri: api.weather(city),
         builder: (data) => Weather.fromJson(data),
       );
+
+  Future<HistoricalWeather> getHistoricalWeather({
+    required double lat,
+    required double lon,
+    required int dt,
+    String units = 'metric',
+    String? lang,
+  }) =>
+      _getHistoricalData(
+        uri: api.timemachine(
+          lat: lat,
+          lon: lon,
+          dt: dt,
+          units: units,
+          lang: lang,
+        ),
+        builder: (data) => HistoricalWeather.fromJson(data),
+      );
+
+  Future<T> _getHistoricalData<T>({
+    required Uri uri,
+    required T Function(dynamic data) builder,
+  }) async {
+    try {
+      final response = await client.get(uri);
+      switch (response.statusCode) {
+        case 200:
+          final data = json.decode(response.body);
+          return builder(data);
+        case 401:
+          throw OneCallAPIUnauthorizedException();
+        case 404:
+          throw CityNotFoundException();
+        default:
+          throw UnknownException();
+      }
+    } on SocketException catch (_) {
+      throw NoInternetConnectionException();
+    }
+  }
 
   Future<T> _getData<T>({
     required Uri uri,

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:open_weather_example_flutter/src/features/weather/data/weather_repository.dart';
 import 'package:open_weather_example_flutter/src/features/weather/domain/forecast/forecast_data.dart';
+import 'package:open_weather_example_flutter/src/features/weather/domain/historical/historical_weather_data.dart';
 import 'package:open_weather_example_flutter/src/features/weather/domain/weather/weather_data.dart';
 
 final cityProvider = StateProvider<String>((ref) {
@@ -21,4 +22,17 @@ final hourlyWeatherProvider =
   final forecast =
       await ref.watch(weatherRepositoryProvider).getForecast(city: city);
   return ForecastData.from(forecast);
+});
+
+final historicalWeatherProvider = FutureProvider.autoDispose
+    .family<HistoricalWeatherData, ({double lat, double lon, int dt})>(
+        (ref, params) async {
+  final historicalWeather = await ref
+      .watch(weatherRepositoryProvider)
+      .getHistoricalWeather(
+        lat: params.lat,
+        lon: params.lon,
+        dt: params.dt,
+      );
+  return HistoricalWeatherData.from(historicalWeather);
 });

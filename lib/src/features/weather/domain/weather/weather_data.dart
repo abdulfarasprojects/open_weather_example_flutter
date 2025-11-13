@@ -4,6 +4,7 @@ import 'package:open_weather_example_flutter/src/features/weather/domain/weather
 /// Derived model class used in the UI
 class WeatherData {
   WeatherData({
+    required this.coord,
     required this.temp,
     required this.minTemp,
     required this.maxTemp,
@@ -14,6 +15,7 @@ class WeatherData {
 
   factory WeatherData.from(Weather weather) {
     return WeatherData(
+      coord: weather.coord,
       temp: Temperature.celsius(weather.weatherParams.temp),
       minTemp: Temperature.celsius(weather.weatherParams.tempMin),
       maxTemp: Temperature.celsius(weather.weatherParams.tempMax),
@@ -23,6 +25,7 @@ class WeatherData {
     );
   }
 
+  final Coord coord;
   final Temperature temp;
   final Temperature minTemp;
   final Temperature maxTemp;

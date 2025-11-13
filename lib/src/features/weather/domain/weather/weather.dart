@@ -28,10 +28,22 @@ class WeatherInfo with _$WeatherInfo {
       _$WeatherInfoFromJson(json);
 }
 
+@freezed
+class Coord with _$Coord {
+  factory Coord({
+    required double lat,
+    required double lon,
+  }) = _Coord;
+
+  factory Coord.fromJson(Map<String, dynamic> json) =>
+      _$CoordFromJson(json);
+}
+
 /// Weather data parsed from the API response (not used directly in the UI)
 @freezed
 class Weather with _$Weather {
   factory Weather({
+    required Coord coord,
     @JsonKey(name: 'main') required WeatherParams weatherParams,
     @JsonKey(name: 'weather') required List<WeatherInfo> weatherInfo,
     required int dt,
